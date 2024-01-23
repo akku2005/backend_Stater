@@ -1,19 +1,15 @@
 const express = require('express');
-const aws = require('aws-sdk');
+const aws = require('@babel/core');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const FileModel = require('../../models/file.model'); // Replace with your actual file model
+const dotenv = require('dotenv');
+const s3 = require('../../config/s3');
 const router = express.Router();
 
-// Configure AWS SDK with your credentials and region
-aws.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION,
-});
 
-// Create an S3 instance
-const s3 = new aws.S3();
+
+
 
 // Configure multer to use S3 for storage
 const upload = multer({
@@ -26,7 +22,7 @@ const upload = multer({
     },
   }),
 });
-console.log(upload);
+// console.log(upload);
 router.post('/s3', upload.array('files', 3), async function (req, res, next) {
   try {
     // Access file details
