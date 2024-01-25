@@ -1,9 +1,18 @@
 const mongoose = require('mongoose');
 
 const fileSchema = new mongoose.Schema({
-    key: String,
-    location: String,
-    // Add other relevant fields based on your needs
+  key: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const FileModel = mongoose.model('File', fileSchema);
