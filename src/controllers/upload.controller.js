@@ -1,10 +1,9 @@
 const multer = require('multer');
 const multerS3 = require('@vickos/multer-s3-transforms-v3');
 const { S3Client } = require('@aws-sdk/client-s3');
-const dotenv = require('dotenv');
+require('dotenv').config();
 
 // Load environment variables from .env file
-dotenv.config();
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
