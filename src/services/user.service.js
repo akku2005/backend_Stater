@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { User } = require('../models');
 const ApiError = require('../utils/ApiError');
+const { UpdateUserDetails } = require('../models/update.user.details.js');
 
 /**
  * Create a user
@@ -52,18 +53,10 @@ const getUserByEmail = async (email) => {
  * @param {Object} updateBody
  * @returns {Promise<User>}
  */
-const updateUserById = async (userId, updateBody) => {
-  const user = await getUserById(userId);
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-  }
-  if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  }
-  Object.assign(user, updateBody);
-  await user.save();
-  return user;
-};
+
+async function updateUserById(userId, userDetails) {
+  return await UpdateUserDetails.findByIdAndUpdate(userId, userDetails, { new: true });
+}
 
 /**
  * Delete user by id

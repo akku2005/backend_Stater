@@ -154,20 +154,6 @@ const s3 = new S3Client({
   },
 });
 
-=======
-const aws = require('@babel/core');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const FileModel = require('../../models/file.model'); // Replace with your actual file model
-const dotenv = require('dotenv');
-const s3 = require('../../config/s3');
-const router = express.Router();
-
-
-
-
-
->>>>>>> 5f3a9387075bd86bf78773fa9faeec9be0170973
 // Configure multer to use S3 for storage
 const upload = multer({
   storage: multerS3({
@@ -182,9 +168,9 @@ const upload = multer({
   }),
 });
 
-=======
+
 // console.log(upload);
->>>>>>> 5f3a9387075bd86bf78773fa9faeec9be0170973
+
 router.post('/s3', upload.array('files', 3), async function (req, res, next) {
   try {
     const files = req.files;
@@ -252,3 +238,5 @@ router.post('/s3', upload.array('files', 3), async function (req, res, next) {
 });
 
 module.exports = router;
+
+

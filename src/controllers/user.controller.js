@@ -1,6 +1,4 @@
 const httpStatus = require('http-status');
-const pick = require('../utils/pick');
-const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { userService } = require('../services');
 
@@ -25,8 +23,21 @@ const getUser = catchAsync(async (req, res) => {
 });
 
 const updateUser = catchAsync(async (req, res) => {
-  const user = await userService.updateUserById(req.params.userId, req.body);
-  res.send(user);
+  try {
+    const userDetails = req.body;
+    const userId = req.params.userId;
+
+    const user = await userService.updateUserById(userId, userDetails);
+
+    if (user) {
+      res.status(httpStatus.OK).json({ success: true, message: 'User details updated successfully.' });
+    } else {
+      res.status(httpStatus.NOT_FOUND).json({ success: false, message: 'User not found.' });
+    }
+  } catch (error) {
+    console.error('Error updating user details:', error);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: 'Error updating user details.' });
+  }
 });
 
 const deleteUser = catchAsync(async (req, res) => {
