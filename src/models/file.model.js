@@ -9,6 +9,14 @@ const fileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  uuid: {
+    type: String,
+    required: true,
+  },
+  qrCode: {
+    type: String,
+    required: true,
+  },
   timestamp: {
     type: Date,
     default: Date.now,

@@ -3,6 +3,7 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const docsRoute = require('./docs.route');
 const uploadRoute = require('./upload.route');
+const mailRoute = require('./mail.route'); // Import the mail route handler
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -19,6 +20,10 @@ const defaultRoutes = [
   {
     path: '/upload',
     route: uploadRoute,
+  },
+  {
+    path: '/mail', // Define the path for the mail route
+    route: mailRoute, // Assign the mail route handler
   },
 ];
 

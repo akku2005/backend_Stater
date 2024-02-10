@@ -49,6 +49,18 @@ const verifyEmail = {
   }),
 };
 
+// Define validation schema for the mail route
+const sendMail = {
+  body: Joi.object().keys({
+    from: Joi.string().email().required(),
+    to: Joi.string().email().required(),
+    subject: Joi.string().required(),
+    message: Joi.string().required(),
+    // You may add additional validation for attachments if needed
+    attachments: Joi.array().items(Joi.any()),
+  }),
+};
+
 module.exports = {
   register,
   login,
@@ -57,4 +69,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   verifyEmail,
+  sendMail, // Add the validation schema for the mail route
 };
